@@ -579,7 +579,6 @@ function ApplicationsSection({
 }
   const handlePayNow = async (booking: BookingType) => {
     try {
-      // 1. Create order on backend
       const orderRes = await axios.post(`${API_BASE}/payments/create-order`, {
         bookingId: booking._id,
       });
