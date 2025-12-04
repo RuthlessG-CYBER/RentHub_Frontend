@@ -328,10 +328,10 @@ function StatCard({
     tone === "success"
       ? "bg-emerald-50 text-emerald-700 border-emerald-100"
       : tone === "warning"
-        ? "bg-amber-50 text-amber-700 border-amber-100"
-        : tone === "info"
-          ? "bg-sky-50 text-sky-700 border-sky-100"
-          : "bg-slate-50 text-slate-700 border-slate-100";
+      ? "bg-amber-50 text-amber-700 border-amber-100"
+      : tone === "info"
+      ? "bg-sky-50 text-sky-700 border-sky-100"
+      : "bg-slate-50 text-slate-700 border-slate-100";
 
   return (
     <Card className="shadow-[0_18px_45px_rgba(15,23,42,0.08)] hover:shadow-[0_22px_60px_rgba(15,23,42,0.12)] hover:-translate-y-0.5 transition-all duration-200 bg-white/90 border border-slate-100">
@@ -398,10 +398,11 @@ function TenantDashboard({ allProducts }: { allProducts: ProductType[] }) {
             <CardContent className="pt-4 pb-4 text-sm text-slate-600">
               <div className="flex items-center justify-between">
                 <span
-                  className={`px-2.5 py-1 rounded-full text-xs font-medium ${p.availability
+                  className={`px-2.5 py-1 rounded-full text-xs font-medium ${
+                    p.availability
                       ? "bg-emerald-50 text-emerald-700 border border-emerald-100"
                       : "bg-rose-50 text-rose-700 border border-rose-100"
-                    }`}
+                  }`}
                 >
                   {p.availability ? "Available" : "Not Available"}
                 </span>
@@ -488,8 +489,8 @@ function LandlordDashboard({
                           b.status === "pending"
                             ? "text-amber-600"
                             : b.status === "accepted"
-                              ? "text-emerald-600"
-                              : "text-rose-600"
+                            ? "text-emerald-600"
+                            : "text-rose-600"
                         }
                       >
                         {b.status}
@@ -544,10 +545,11 @@ function LandlordDashboard({
                     ₹{p.price}/month
                   </span>
                   <span
-                    className={`px-2.5 py-1 rounded-full text-[11px] font-medium ${p.availability
+                    className={`px-2.5 py-1 rounded-full text-[11px] font-medium ${
+                      p.availability
                         ? "bg-emerald-50 text-emerald-700 border border-emerald-100"
                         : "bg-rose-50 text-rose-700 border border-rose-100"
-                      }`}
+                    }`}
                   >
                     {p.availability ? "Available" : "Not Available"}
                   </span>
@@ -571,10 +573,10 @@ function ApplicationsSection({
 }) {
 
   interface RazorpayResponse {
-    razorpay_order_id: string;
-    razorpay_payment_id: string;
-    razorpay_signature: string;
-  }
+  razorpay_order_id: string;
+  razorpay_payment_id: string;
+  razorpay_signature: string;
+}
   const handlePayNow = async (booking: BookingType) => {
     try {
       const orderRes = await axios.post(`${API_BASE}/payments/create-order`, {
@@ -648,12 +650,13 @@ function ApplicationsSection({
                 </h3>
 
                 <span
-                  className={`text-xs px-3 py-1 rounded-full font-medium ${b.status === "pending"
+                  className={`text-xs px-3 py-1 rounded-full font-medium ${
+                    b.status === "pending"
                       ? "bg-amber-100 text-amber-700"
                       : b.status === "accepted"
-                        ? "bg-emerald-100 text-emerald-700"
-                        : "bg-rose-100 text-rose-700"
-                    }`}
+                      ? "bg-emerald-100 text-emerald-700"
+                      : "bg-rose-100 text-rose-700"
+                  }`}
                 >
                   {b.status}
                 </span>
@@ -691,8 +694,8 @@ function ApplicationsSection({
                   {b.paymentStatus === "success"
                     ? "Paid"
                     : b.paymentStatus === "failed"
-                      ? "Failed"
-                      : "Pending"}
+                    ? "Failed"
+                    : "Pending"}
                 </span>
 
                 {b.status === "accepted" && b.paymentStatus !== "success" && (
@@ -745,8 +748,9 @@ function NotificationsSection({
           {notifications.map((n) => (
             <Card
               key={n._id}
-              className={`p-4 border shadow-sm bg-white/90 ${n.isRead ? "opacity-70" : "border-sky-400"
-                }`}
+              className={`p-4 border shadow-sm bg-white/90 ${
+                n.isRead ? "opacity-70" : "border-sky-400"
+              }`}
             >
               <div className="flex items-start justify-between gap-3">
                 <div>
@@ -789,16 +793,18 @@ function SidebarItem({
   return (
     <button
       onClick={onClick}
-      className={`flex items-center gap-3 px-3 py-2 rounded-xl text-sm font-medium transition-all ${active
+      className={`flex items-center gap-3 px-3 py-2 rounded-xl text-sm font-medium transition-all ${
+        active
           ? "bg-linear-to-r from-sky-500 to-blue-600 text-white shadow-md"
           : "text-slate-600 hover:bg-sky-50 hover:text-sky-700"
-        }`}
+      }`}
     >
       <span
-        className={`h-8 w-8 rounded-lg flex items-center justify-center ${active
+        className={`h-8 w-8 rounded-lg flex items-center justify-center ${
+          active
             ? "bg-white/10 text-white"
             : "bg-slate-100 text-slate-500"
-          }`}
+        }`}
       >
         {icon}
       </span>
