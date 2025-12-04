@@ -97,7 +97,6 @@ export default function Home() {
     );
     setFilteredProducts(result);
   };
-  handleSearch();
 
 
   // For Booking
