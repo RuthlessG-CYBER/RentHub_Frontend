@@ -83,7 +83,7 @@ export default function Home() {
   });
 
   // For Search
-  const handleSearch = () => {
+  const handleSearch = async () => {
     const q = search.toLowerCase().trim();
     if (!q) {
       setFilteredProducts([]);
