@@ -2,6 +2,12 @@ import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { Label } from "@/components/ui/label";
+import { motion } from "framer-motion";
+import { CardDescription } from "@/components/ui/card";
 
 export default function AuthPage() {
     const [isLogin, setIsLogin] = useState(true);
@@ -34,7 +40,7 @@ export default function AuthPage() {
                 localStorage.setItem("token", response.data.token);
                 localStorage.setItem("user", JSON.stringify(response.data.user));
                 Navigate("/home");
-            }else{
+            } else {
                 localStorage.setItem("token", response.data.token);
                 localStorage.setItem("user", JSON.stringify(response.data.user));
                 setIsLogin(true);
@@ -45,87 +51,89 @@ export default function AuthPage() {
     };
 
     return (
-        <div
-            className="
-        min-h-screen w-full flex items-center justify-center
-        bg-linear-to-br from-[#4e7fcf] via-[#5e93e2] to-white
-        relative overflow-hidden
-    "
-        >
-            <div
-                className="
-            pointer-events-none absolute inset-0
-            bg-[linear-gradient(to_right,rgba(59,130,246,0.08)_1px,transparent_1px),
-               linear-gradient(to_bottom,rgba(59,130,246,0.08)_1px,transparent_1px)]
-            bg-size-[40px_40px]
-            opacity-40
-        "
-            ></div>
-            <div className="relative z-10 w-full max-w-md bg-white/70 backdrop-blur-xl border border-blue-100 shadow-xl rounded-3xl px-10 py-12">
-                <h2 className="text-3xl font-extrabold text-center text-slate-900 mb-8 tracking-tight">
-                    {isLogin ? "Welcome Back" : "Create Your Account"}
-                </h2>
+        <div className="min-h-screen w-full flex items-center justify-center bg-gradient-to-br from-[#dce9ff] via-white to-[#e3efff] relative overflow-hidden">
+            <div className="absolute -top-24 -left-24 w-80 h-80 bg-blue-300/30 blur-3xl rounded-full" />
+            <div className="absolute bottom-0 right-0 w-[26rem] h-[26rem] bg-blue-500/30 blur-3xl rounded-full" />
 
-                <form onSubmit={handleSubmit} className="space-y-6">
+            <motion.div
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.5 }}
+                className="relative z-10 w-full max-w-md"
+            >
+                <Card className="backdrop-blur-xl bg-white/70 border border-blue-100 shadow-2xl rounded-3xl p-6">
+                    <CardHeader className="text-center space-y-2">
+                        <CardTitle className="text-3xl font-semibold text-blue-900 tracking-tight">
+                            {isLogin ? "Welcome Back" : "Create an Account"}
+                        </CardTitle>
+                        <CardDescription className="text-blue-600">
+                            {isLogin ? "Sign in to continue" : "Sign up to get started"}
+                        </CardDescription>
+                    </CardHeader>
 
-                    {!isLogin && (
-                        <div>
-                            <label className="text-slate-700 ml-1 text-sm font-medium">Full Name</label>
-                            <input
-                                name="name"
-                                type="text"
-                                placeholder="Soumya Panda"
-                                onChange={handleChange}
-                                className="w-full px-4 py-3 mt-1 rounded-xl bg-white border border-slate-200 text-slate-800 placeholder-slate-400 focus:ring-2 focus:ring-blue-500 outline-none transition"
-                                required
-                            />
-                        </div>
-                    )}
+                    <CardContent>
+                        <form onSubmit={handleSubmit} className="space-y-5">
+                            {!isLogin && (
+                                <div className="space-y-1">
+                                    <Label className="text-blue-800">Full Name</Label>
+                                    <Input
+                                        name="name"
+                                        placeholder="Enter your name"
+                                        onChange={handleChange}
+                                        required
+                                        className="bg-white text-blue-900 placeholder-blue-400 border-blue-200 focus-visible:ring-blue-500"
+                                    />
+                                </div>
+                            )}
 
-                    <div>
-                        <label className="text-slate-700 ml-1 text-sm font-medium">Email Address</label>
-                        <input
-                            name="email"
-                            type="email"
-                            placeholder="you@example.com"
-                            onChange={handleChange}
-                            className="w-full px-4 py-3 mt-1 rounded-xl bg-white border border-slate-200 text-slate-800 placeholder-slate-400 focus:ring-2 focus:ring-blue-500 outline-none transition"
-                            required
-                        />
-                    </div>
+                            <div className="space-y-1">
+                                <Label className="text-blue-800">Email</Label>
+                                <Input
+                                    name="email"
+                                    type="email"
+                                    placeholder="you@example.com"
+                                    onChange={handleChange}
+                                    required
+                                    className="bg-white text-blue-900 placeholder-blue-400 border-blue-200 focus-visible:ring-blue-500"
+                                />
+                            </div>
 
-                    <div>
-                        <label className="text-slate-700 ml-1 text-sm font-medium">Password</label>
-                        <input
-                            name="password"
-                            type="password"
-                            placeholder="Enter password"
-                            onChange={handleChange}
-                            className="w-full px-4 py-3 mt-1 rounded-xl bg-white border border-slate-200 text-slate-800 placeholder-slate-400 focus:ring-2 focus:ring-blue-500 outline-none transition"
-                            required
-                        />
-                    </div>
-                    <button
-                        type="submit"
-                        className="w-full py-3 bg-blue-600 hover:bg-blue-700 rounded-xl text-white font-semibold text-lg transition shadow-lg hover:shadow-blue-400/40"
-                    >
-                        {isLogin ? "Login" : "Sign Up"}
-                    </button>
-                </form>
-                {message && (
-                    <p className="text-center text-red-500 mt-4 text-sm">{message}</p>
-                )}
-                
-                <p className="text-center text-slate-700 mt-6 text-sm">
-                    {isLogin ? "Don't have an account?" : "Already have an account?"}
-                    <button
-                        onClick={() => setIsLogin(!isLogin)}
-                        className="text-blue-600 ml-1 font-medium hover:underline"
-                    >
-                        {isLogin ? "Create one" : "Login"}
-                    </button>
-                </p>
-            </div>
+                            <div className="space-y-1">
+                                <Label className="text-blue-800">Password</Label>
+                                <Input
+                                    name="password"
+                                    type="password"
+                                    placeholder="Enter password"
+                                    onChange={handleChange}
+                                    required
+                                    className="bg-white text-blue-900 placeholder-blue-400 border-blue-200 focus-visible:ring-blue-500"
+                                />
+                            </div>
+
+                            <Button
+                                type="submit"
+                                className="w-full py-6 text-lg font-semibold rounded-xl bg-blue-600 hover:bg-blue-700 text-white shadow-lg"
+                            >
+                                {isLogin ? "Login" : "Sign Up"}
+                            </Button>
+                        </form>
+
+                        {message && (
+                            <p className="text-center text-red-500 mt-4 text-sm">{message}</p>
+                        )}
+
+                        <p className="text-center text-blue-700 mt-6 text-sm">
+                            {isLogin ? "Don't have an account?" : "Already have an account?"}
+                            <button
+                                onClick={() => setIsLogin(!isLogin)}
+                                className="ml-1 font-medium text-blue-800 hover:underline"
+                            >
+                                {isLogin ? "Create one" : "Login"}
+                            </button>
+                        </p>
+                    </CardContent>
+                </Card>
+            </motion.div>
         </div>
     );
 }
