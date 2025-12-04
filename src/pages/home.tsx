@@ -97,6 +97,13 @@ export default function Home() {
     );
     setFilteredProducts(result);
   };
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      handleSearch();
+    }, 2000);
+
+    return () => clearTimeout(timer);
+  }, [search]);
 
 
   // For Booking
@@ -328,8 +335,8 @@ export default function Home() {
                 key={item.id}
                 onClick={() => setActive(item.id)}
                 className={`relative pb-1 transition-colors ${active === item.id
-                    ? "text-blue-600"
-                    : "text-slate-600 hover:text-blue-600"
+                  ? "text-blue-600"
+                  : "text-slate-600 hover:text-blue-600"
                   }`}
               >
                 {item.label}
@@ -447,63 +454,63 @@ export default function Home() {
                         No properties available right now.
                       </p>
                     )}
-                  
+
                   {(filteredProducts.length > 0 ? filteredProducts : products)
-                  .filter((p) => p.ownerId !== currentUser?.id)
-                  .map(
-                    (p) => (
-                      <div
-                        key={p._id}
-                        className="group flex flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm hover:shadow-md transition-all"
-                      >
-                        <div className="relative h-44 w-full overflow-hidden">
-                          <img
-                            src={p.src}
-                            alt={p.name}
-                            className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
-                          />
-                          <span className="absolute top-3 left-3 rounded-full bg-black/70 px-3 py-1 text-[11px] font-medium text-white">
-                            {p.name}
-                          </span>
-                        </div>
-
-                        <div className="flex flex-1 flex-col px-4 py-3">
-                          <h3 className="text-sm font-semibold text-slate-900">
-                            {p.name}
-                          </h3>
-                          <p className="mt-1 line-clamp-2 text-xs text-slate-500">
-                            {p.location}
-                          </p>
-
-                          <div className="mt-3 flex items-center justify-between text-xs">
-                            <p className="text-slate-700">
-                              Rent:{" "}
-                              <span className="font-bold text-blue-600">
-                                ₹{p.price}
-                              </span>{" "}
-                              <span className="text-slate-500">/ month</span>
-                            </p>
-
-                            <span
-                              className={`rounded-full px-3 py-1 text-[11px] font-medium text-white ${p.availability ? "bg-green-600" : "bg-red-500"
-                                }`}
-                            >
-                              {p.availability ? "Available" : "Not Available"}
+                    .filter((p) => p.ownerId !== currentUser?.id)
+                    .map(
+                      (p) => (
+                        <div
+                          key={p._id}
+                          className="group flex flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm hover:shadow-md transition-all"
+                        >
+                          <div className="relative h-44 w-full overflow-hidden">
+                            <img
+                              src={p.src}
+                              alt={p.name}
+                              className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+                            />
+                            <span className="absolute top-3 left-3 rounded-full bg-black/70 px-3 py-1 text-[11px] font-medium text-white">
+                              {p.name}
                             </span>
                           </div>
 
-                          {p.availability && (
-                            <Button
-                              onClick={() => handleBookNow(p)}
-                              className="mt-3 w-full rounded-xl bg-blue-600 py-2 text-xs font-semibold text-white hover:bg-blue-700"
-                            >
-                              Book Now
-                            </Button>
-                          )}
+                          <div className="flex flex-1 flex-col px-4 py-3">
+                            <h3 className="text-sm font-semibold text-slate-900">
+                              {p.name}
+                            </h3>
+                            <p className="mt-1 line-clamp-2 text-xs text-slate-500">
+                              {p.location}
+                            </p>
+
+                            <div className="mt-3 flex items-center justify-between text-xs">
+                              <p className="text-slate-700">
+                                Rent:{" "}
+                                <span className="font-bold text-blue-600">
+                                  ₹{p.price}
+                                </span>{" "}
+                                <span className="text-slate-500">/ month</span>
+                              </p>
+
+                              <span
+                                className={`rounded-full px-3 py-1 text-[11px] font-medium text-white ${p.availability ? "bg-green-600" : "bg-red-500"
+                                  }`}
+                              >
+                                {p.availability ? "Available" : "Not Available"}
+                              </span>
+                            </div>
+
+                            {p.availability && (
+                              <Button
+                                onClick={() => handleBookNow(p)}
+                                className="mt-3 w-full rounded-xl bg-blue-600 py-2 text-xs font-semibold text-white hover:bg-blue-700"
+                              >
+                                Book Now
+                              </Button>
+                            )}
+                          </div>
                         </div>
-                      </div>
-                    )
-                  )}
+                      )
+                    )}
                 </div>
               </div>
             </section>
