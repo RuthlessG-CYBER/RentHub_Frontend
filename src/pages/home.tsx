@@ -50,8 +50,6 @@ export default function Home() {
     "home"
   );
 
-  const [loaded, setLoaded] = useState(false);
-
   const [open, setOpen] = useState(false);
   const [editOpen, setEditOpen] = useState(false);
 
@@ -287,16 +285,14 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
-    if (loaded) return;
     axios
       .get("https://renthub-backend-h0ot.onrender.com/api/user/products")
       .then((res) => {
         console.log("API RESPONSE:", res.data);
         setProducts(res.data.products || []);
-        setLoaded(true);
       })
       .catch((err) => console.log(err));
-  }, [ loaded ]);
+  }, []);
 
   const navItems = [
     { id: "home" as const, label: "Home" },
